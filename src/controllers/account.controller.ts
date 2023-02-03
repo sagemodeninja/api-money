@@ -1,10 +1,11 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
@@ -15,7 +16,7 @@ import {
   post,
   put,
   requestBody,
-  response,
+  response
 } from '@loopback/rest';
 import {Account} from '../models';
 import {AccountRepository} from '../repositories';
@@ -24,8 +25,9 @@ export class AccountController {
   constructor(
     @repository(AccountRepository)
     public accountRepository: AccountRepository,
-  ) {}
+  ) { }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @post('/accounts')
   @response(200, {
     description: 'Account model instance',
@@ -47,6 +49,7 @@ export class AccountController {
     return this.accountRepository.create(account);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @get('/accounts/count')
   @response(200, {
     description: 'Account model count',
@@ -56,6 +59,7 @@ export class AccountController {
     return this.accountRepository.count(where);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @get('/accounts')
   @response(200, {
     description: 'Array of Account model instances',
@@ -74,6 +78,7 @@ export class AccountController {
     return this.accountRepository.find(filter);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @patch('/accounts')
   @response(200, {
     description: 'Account PATCH success count',
@@ -93,6 +98,7 @@ export class AccountController {
     return this.accountRepository.updateAll(account, where);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @get('/accounts/{id}')
   @response(200, {
     description: 'Account model instance',
@@ -110,6 +116,7 @@ export class AccountController {
     return this.accountRepository.findById(id, filter);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @patch('/accounts/{id}')
   @response(204, {
     description: 'Account PATCH success',
@@ -128,6 +135,7 @@ export class AccountController {
     await this.accountRepository.updateById(id, account);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @put('/accounts/{id}')
   @response(204, {
     description: 'Account PUT success',
@@ -139,6 +147,7 @@ export class AccountController {
     await this.accountRepository.replaceById(id, account);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @del('/accounts/{id}')
   @response(204, {
     description: 'Account DELETE success',

@@ -1,21 +1,16 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Category} from '../models';
 import {CategoryRepository} from '../repositories';
@@ -24,8 +19,9 @@ export class CategoryController {
   constructor(
     @repository(CategoryRepository)
     public categoryRepository: CategoryRepository,
-  ) {}
+  ) { }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @post('/categories')
   @response(200, {
     description: 'Category model instance',
@@ -47,6 +43,7 @@ export class CategoryController {
     return this.categoryRepository.create(category);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @get('/categories/count')
   @response(200, {
     description: 'Category model count',
@@ -56,6 +53,7 @@ export class CategoryController {
     return this.categoryRepository.count(where);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @get('/categories')
   @response(200, {
     description: 'Array of Category model instances',
@@ -74,6 +72,7 @@ export class CategoryController {
     return this.categoryRepository.find(filter);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @patch('/categories')
   @response(200, {
     description: 'Category PATCH success count',
@@ -93,6 +92,7 @@ export class CategoryController {
     return this.categoryRepository.updateAll(category, where);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @get('/categories/{id}')
   @response(200, {
     description: 'Category model instance',
@@ -110,6 +110,7 @@ export class CategoryController {
     return this.categoryRepository.findById(id, filter);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @patch('/categories/{id}')
   @response(204, {
     description: 'Category PATCH success',
@@ -128,6 +129,7 @@ export class CategoryController {
     await this.categoryRepository.updateById(id, category);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @put('/categories/{id}')
   @response(204, {
     description: 'Category PUT success',
@@ -139,6 +141,7 @@ export class CategoryController {
     await this.categoryRepository.replaceById(id, category);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @del('/categories/{id}')
   @response(204, {
     description: 'Category DELETE success',

@@ -1,10 +1,11 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
@@ -15,7 +16,7 @@ import {
   post,
   put,
   requestBody,
-  response,
+  response
 } from '@loopback/rest';
 import {Transaction} from '../models';
 import {TransactionRepository} from '../repositories';
@@ -24,8 +25,9 @@ export class TransactionController {
   constructor(
     @repository(TransactionRepository)
     public transactionRepository: TransactionRepository,
-  ) {}
+  ) { }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @post('/transactions')
   @response(200, {
     description: 'Transaction model instance',
@@ -47,6 +49,7 @@ export class TransactionController {
     return this.transactionRepository.create(transaction);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @get('/transactions/count')
   @response(200, {
     description: 'Transaction model count',
@@ -58,6 +61,7 @@ export class TransactionController {
     return this.transactionRepository.count(where);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @get('/transactions')
   @response(200, {
     description: 'Array of Transaction model instances',
@@ -76,6 +80,7 @@ export class TransactionController {
     return this.transactionRepository.find(filter);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @patch('/transactions')
   @response(200, {
     description: 'Transaction PATCH success count',
@@ -95,6 +100,7 @@ export class TransactionController {
     return this.transactionRepository.updateAll(transaction, where);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @get('/transactions/{id}')
   @response(200, {
     description: 'Transaction model instance',
@@ -112,6 +118,7 @@ export class TransactionController {
     return this.transactionRepository.findById(id, filter);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @patch('/transactions/{id}')
   @response(204, {
     description: 'Transaction PATCH success',
@@ -130,6 +137,7 @@ export class TransactionController {
     await this.transactionRepository.updateById(id, transaction);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @put('/transactions/{id}')
   @response(204, {
     description: 'Transaction PUT success',
@@ -141,6 +149,7 @@ export class TransactionController {
     await this.transactionRepository.replaceById(id, transaction);
   }
 
+  @authenticate({strategy: 'auth0-jwt'})
   @del('/transactions/{id}')
   @response(204, {
     description: 'Transaction DELETE success',

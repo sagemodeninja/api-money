@@ -1,4 +1,4 @@
-import {ApplicationConfig, ApiMoneyApplication} from './application';
+import {ApiMoneyApplication, ApplicationConfig} from './application';
 
 export * from './application';
 
