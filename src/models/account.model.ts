@@ -5,49 +5,60 @@ export class Account extends Entity {
   @property({
     type: 'number',
     generated: true,
-    id: true
+    id: true,
+    mysql: {
+      columnName: 'Id',
+      dataType: 'bigint',
+    },
   })
   id?: number;
 
   @property({
     type: 'string',
     required: true,
-    length: 5
+    length: 5,
+    mysql: {columnName: 'Shortcode'},
   })
   shortcode: string;
 
   @property({
     type: 'string',
     required: true,
-    length: 80
+    length: 80,
+    mysql: {columnName: 'Title'},
   })
   title: string;
 
   @property({
-    type: 'number'
+    type: 'number',
+    mysql: {
+      columnName: 'CategoryId',
+      dataType: 'bigint',
+    },
   })
-  walletId: number;
-
-  @property({
-    type: 'number'
-  })
-  categoryId: number;
-
-  @property({
-    type: 'string',
-    length: 16
-  })
-  accountNumber: string;
+  categoryId?: number;
 
   @property({
     type: 'string',
-    length: 20
+    length: 16,
+    mysql: {columnName: 'AccountNumber'},
   })
-  bankIcon: string;
+  accountNumber?: string;
+
+  @property({
+    type: 'string',
+    length: 20,
+    mysql: {columnName: 'BankIcon'},
+  })
+  bankIcon?: string;
 
   @property({
     type: 'number',
-    required: true
+    required: true,
+    mysql: {
+      columnName: 'Status',
+      dataType: 'tinyint',
+    },
   })
   status: number;
 

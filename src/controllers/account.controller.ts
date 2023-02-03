@@ -4,12 +4,18 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where
+  Where,
 } from '@loopback/repository';
 import {
-  del, get,
-  getModelSchemaRef, param, patch, post, put, requestBody,
-  response
+  del,
+  get,
+  getModelSchemaRef,
+  param,
+  patch,
+  post,
+  put,
+  requestBody,
+  response,
 } from '@loopback/rest';
 import {Account} from '../models';
 import {AccountRepository} from '../repositories';
@@ -18,7 +24,7 @@ export class AccountController {
   constructor(
     @repository(AccountRepository)
     public accountRepository: AccountRepository,
-  ) { }
+  ) {}
 
   @post('/accounts')
   @response(200, {
@@ -46,9 +52,7 @@ export class AccountController {
     description: 'Account model count',
     content: {'application/json': {schema: CountSchema}},
   })
-  async count(
-    @param.where(Account) where?: Where<Account>,
-  ): Promise<Count> {
+  async count(@param.where(Account) where?: Where<Account>): Promise<Count> {
     return this.accountRepository.count(where);
   }
 
@@ -100,7 +104,8 @@ export class AccountController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(Account, {exclude: 'where'}) filter?: FilterExcludingWhere<Account>
+    @param.filter(Account, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Account>,
   ): Promise<Account> {
     return this.accountRepository.findById(id, filter);
   }
