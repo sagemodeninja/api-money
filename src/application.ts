@@ -1,16 +1,19 @@
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
+import {RepositoryMixin} from '@loopback/repository';
+import {RestApplication} from '@loopback/rest';
 import {
   RestExplorerBindings,
-  RestExplorerComponent,
+  RestExplorerComponent
 } from '@loopback/rest-explorer';
-import {RestApplication} from '@loopback/rest';
 import path from 'path';
 import {MySequence} from './sequence';
 
 export {ApplicationConfig};
 
-export class ApiMoneyApplication extends BootMixin(RestApplication) {
+export class ApiMoneyApplication extends BootMixin(
+  RepositoryMixin(RestApplication),
+) {
   constructor(options: ApplicationConfig = {}) {
     super(options);
 
